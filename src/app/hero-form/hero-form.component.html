@@ -1,0 +1,94 @@
+<script src="app.js"></script>
+<div class="container">
+    <div class="subcotainer">
+        <div class="resultcontainer"> <img src="assets/img/It-Expert-Logo.jpg" alt="IT Expert"></div>  
+      <div class="formcontainer">
+  <div [hidden]="showList">
+    <h1>Subscription Form</h1>
+    <p><span style="color: red;"><strong>*</strong></span> Required Fields</p>
+    <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name <span style="color: red;">*</span></label>
+        <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name" #name="ngModel">
+        <!--<div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          Name is required
+        </div>-->
+      </div>
+      <div class="form-group">
+        <label for="email">Email <span style="color: red;">*</span></label>
+        <input type="email" class="form-control" id="email" required [(ngModel)]="model.email" name="email"
+          #email="ngModel">
+       <!-- <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+          Email is required
+        </div>-->
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone <span style="color: red;">*</span></label>
+        <input type="phone" class="form-control" id="phone" required [(ngModel)]="model.phone" name="phone"
+          #phone="ngModel">
+         <!--<div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
+          Phone is required
+        </div>-->
+
+
+      </div>
+
+      <div class="form-group">
+        <label for="training">Training of Interest <span style="color: red;">*</span></label>
+        <select class="form-control" id="training" required [(ngModel)]="model.training" name="training"
+          #training="ngModel">
+          <option *ngFor="let t1 of trainings" [value]="t1">{{t1}}</option>
+        </select>
+       <!-- <div [hidden]="training.valid || training.pristine" class="alert alert-danger">
+          Training is required
+        </div>-->
+      </div>
+
+      <div class="form-group">
+        <label for="comments">Your Comment</label>
+        <textarea type="text" class="form-control" id="comments" [(ngModel)]="model.comments"
+          name="comments"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-success"
+        [disabled]="!heroForm.form.valid">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-default" (click)="newHero(); heroForm.reset()">Reset</button>
+    </form>
+  </div>
+
+  <div [hidden]="!showList">
+    <h2>You submitted the following:</h2>
+    <table ng-if="subscriptions.length" class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr class="info">
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Trainings</th>
+          <th>Comments</th>
+          <th ng-if="!ifSearchUser">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subscription of subscriptions">
+          <td>{{ subscription.name }}</td>
+          <td>{{ subscription.email }}</td>
+          <td>{{ subscription.phone }}</td>
+          <td>{{ subscription.training }}</td>
+          <td>{{ subscription.comments }}</td>
+          <td ng-if="!ifSearchUser">
+              <div style="width:120px;"><a style="width: 50px; float:left;" href="#" (click)="edit(subscription)" role = "button" class = "btn btn-info">edit</a>
+                <a style="width: 60px; float:right;" href="#" (click)="delete(subscription)" role = "button" class = "btn btn-danger">delete</a></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div style="clear:both;"></div>
+  <div style="padding:15px 0; float: right;"><button *ngIf="!showList" type="button" class="btn btn-info" (click)="toggleMode()">View all Submissions</button>
+    <button *ngIf="showList" type="button" class="btn btn-success" (click)="toggleMode()">Back</button></div>
+</div>
+  
+</div>
+</div>
